@@ -83,9 +83,6 @@ class WP_Meta_Injection {
 			$label = isset( $_GET['post'] ) ? get_post_type( $_GET['post'] ) : 'page/post';
 			$label = isset( $_GET['post_type'] ) ? esc_attr( $_GET['post_type'] ) : $label;
 
-			/**
-			 * Sample metabox to demonstrate each field type included
-			 */
 			$meta_boxes['rss_metabox'] = array(
 				'id'            => 'rss_metabox',
 				'title'         => __( 'Meta Injection Content (Arbitrary Tags for &lt;head&gt;)', 'wp_meta_injection' ),
