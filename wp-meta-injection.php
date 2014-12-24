@@ -45,10 +45,13 @@ class WP_Meta_Injection {
 
 	public function hooks() {
 		add_action( 'init', array( $this, 'init' ) );
-
-		// Add the metaboxes
-		add_filter( 'cmb2_meta_boxes', array( $this, 'meta_injection_metaboxes' ) );
-
+		
+		// check that CMB2 is active
+		if( class_exists( 'cmb2_bootstrap_200beta' ) ) {
+			// Add the metaboxes
+			add_filter( 'cmb2_meta_boxes', array( $this, 'meta_injection_metaboxes' ) );
+		}
+		
 		// Add whatever is in the metabox field to <head>
 		add_action( 'wp_head', array( $this, 'do_meta_injection' ), 1 );
 	}
