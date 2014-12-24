@@ -1,6 +1,6 @@
 === WP Meta Injection ===
 Contributors: mmcachran
-Tags: easteregg
+Tags: meta injection
 Requires at least: 3.8
 Tested up to: 4.1
 Stable tag: trunk
