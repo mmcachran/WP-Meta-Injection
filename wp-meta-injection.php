@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Meta Injection
- * Description: Inject additional meta data on a post-by-post basis (requires CMB2)
+ * Description: Inject additional meta data on a post-by-post basis
  * Version:     0.1.0
  * Author:      mmcachran
  * License:     GPLv2+
@@ -27,7 +27,7 @@
 
 class WP_Meta_Injection {
 
-	const VERSION = '0.1.0';
+	const VERSION = '0.2.0';
 	public static $url  = '';
 	public static $path = '';
 	public static $name = '';
@@ -49,7 +49,10 @@ class WP_Meta_Injection {
 		// check that CMB2 is active
 		if( class_exists( 'cmb2_bootstrap_200beta' ) ) {
 			// Add the metaboxes
-			add_filter( 'cmb2_meta_boxes', array( $this, 'meta_injection_metaboxes' ) );
+			add_filter( 'cmb2_meta_boxes', array( $this, 'cmb_meta_injection_metaboxes' ) );
+		} else {
+			add_action( 'add_meta_boxes', array( $this->meta_box(), 'meta_box_add' ) );
+			add_action( 'save_post', array( $this->meta_box(), 'meta_box_save' ) );
 		}
 		
 		// Add whatever is in the metabox field to <head>
@@ -73,7 +76,7 @@ class WP_Meta_Injection {
 	 * @param  array $meta_boxes
 	 * @return array
 	 */
-	public function meta_injection_metaboxes( array $meta_boxes ) {
+	public function cmb_meta_injection_metaboxes( array $meta_boxes ) {
 		global $current_user;
 
 		if ( current_user_can( 'manage_options' ) ) {
@@ -105,6 +108,16 @@ class WP_Meta_Injection {
 
 			return $meta_boxes;
 		}
+	}
+	
+	public function meta_box() {
+		if ( isset( $this->meta_box ) ) {
+			return $this->meta_box;
+		}
+		
+		require_once( 'lib/meta-box.php' );
+		$this->meta_box = new WP_Meta_Injection_Meta_Box( $this );
+		return $this->meta_box;
 	}
 
 	/**
