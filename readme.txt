@@ -17,5 +17,8 @@ After activation, you should see a meta box for injecting additional data into a
 
 == Changelog ==
 
+= 1.0.1 =
+* Refactoring and cleanup
+
 = 0.2.0 =
 * Remove CMB2 dependency (only use CMB2 if it's available)
