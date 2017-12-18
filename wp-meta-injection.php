@@ -22,11 +22,11 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'WP_META_INJECTION_VERSION', '1.0.1' );
 
-// Are we in DEV mode?
+// Constant to show this plugin is loaded.
 if ( ! defined( 'WP_META_INJECTION' ) ) {
 	define( 'WP_META_INJECTION', true );
 }
 
-// load the plugin
+// Load the plugin.
 require_once( plugin_dir_path( __FILE__ ) . 'lib/meta-injection.php' );	
 add_action( 'plugins_loaded', array( 'WP_Meta_Injection', 'get_instance' ) );
